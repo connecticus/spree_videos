@@ -1,7 +1,7 @@
 module Spree
   module Admin
     class VideosController < ResourceController
-      before_filter :load_data
+      before_action :load_data
       create.before :set_product
       update.before :set_product
 
