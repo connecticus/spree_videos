@@ -1,0 +1,31 @@
+ru:
+  activerecord:
+    attributes:
+      spree/videos:
+        youtube_ref:  Id
+        position:     pos
+        created_at:   created at
+        updated_at:   updated at
+        title:        Название
+        description:  Описание
+        duration:     Длительность
+        views:        Просмотры
+        likes:        Лайки
+        dislikes:     Дизлайки
+        comments:     Комментарии
+        subscribers:  Подписчики
+        thumbnail_url: Постер
+    models:
+      spree/video:
+        one: Видео
+        other: Видео
+  video: Видео
+  videos: Видео
+  new_video: Добавить
+  youtube_ref: YouTube ID
+  product_video_index: "%{name} Видео"
+  
+  helpers:
+    label:
+      video:
+        youtube_ref: YouTube идентификатор

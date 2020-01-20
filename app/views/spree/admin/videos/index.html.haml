@@ -47,7 +47,7 @@
 #video
 %br/
 %p
-  = link_to icon('icon icon-plus') + ' ' + t("new_video"), (@product ? new_admin_product_video_url(@product) : new_admin_video_url), id: 'new_video_link', class: 'btn btn-success'
+  = button_link_to  t("new_video"), (@product ? new_admin_product_video_url(@product) : new_admin_video_url), id: 'new_video_link', class: 'btn btn-success', icon: 'add'
 - content_for :head do
   :javascript
     jQuery(document).ready(function(){
