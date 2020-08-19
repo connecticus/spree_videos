@@ -14,8 +14,13 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 3'
-  # s.add_dependency 'youtube_it', '~> 2.4.1'
+
+  spree_version = '>= 3.2.0', '< 5.0'
+  s.add_dependency 'spree_core', spree_version
+  s.add_dependency 'spree_backend', spree_version
+  s.add_dependency 'spree_extension'
+
+  #s.add_dependency 'youtube_it', '~> 2.4.1'
   s.add_dependency 'yt', '~> 0.22.0'
   s.add_dependency 'haml', '5.1.2'
 

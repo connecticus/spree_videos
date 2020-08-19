@@ -5,15 +5,7 @@ module Spree
       create.before :set_product
       update.before :set_product
 
-      def update_positions
-        params[:positions].each do |id, index|
-          Video.update_all(['position=?', index], ['id=?', id])
-        end
 
-        respond_to do |format|
-          format.js  { render :text => 'Ok' }
-        end
-      end
 
       private
   

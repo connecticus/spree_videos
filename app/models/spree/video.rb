@@ -1,5 +1,7 @@
 module Spree
   class Video < ActiveRecord::Base
+    acts_as_list scope: :watchable
+
     belongs_to :watchable, :polymorphic => true, :touch => true
 
     attr_accessor :product_id

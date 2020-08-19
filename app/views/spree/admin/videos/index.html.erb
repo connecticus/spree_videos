@@ -1,0 +1,104 @@
+<%= render :partial => 'spree/admin/shared/sub_menu/product' %>
+<% if @product %>
+  <%= render :partial => 'spree/admin/shared/product_tabs', :locals => {current: 'Videos'} %>
+  <table class="table index sortable"  data-hook="product_videos_table" data-sortable-link="<%= update_positions_admin_product_videos_url(@product) %>">
+    <tr>
+      <th class="move-handle"></th>
+      <th>
+        <%= t("youtube_ref") %>
+      </th>
+      <th>Home</th>
+      <th>Stream</th>
+      <th class="actions"></th>
+    </tr>
+    <% @product.videos.each do |video| %>
+      <tr id="<%= spree_dom_id(video) %>"  data-hook="product_videos_row">
+        <td class="move-handle text-center">
+          <% if can? :edit, video %>
+            <span class="icon icon-move handle"></span>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to (video.title.present? ? video.title : video.youtube_link), video.youtube_link, class: 'fancyYoutube' %>
+        </td>
+        <td>
+          <% if video.show_on_home %>
+            <i class="icon icon-ok"></i>
+          <% end %>
+        </td>
+        <td>
+          <% if video.stream %>
+            <i class="icon icon-ok"></i>
+          <% end %>
+        </td>
+        <td class="actions actions-2 text-right">
+          <%= link_to_edit 'edit', { url: edit_admin_product_video_url(@product, video), no_text: true } %>
+          <%= link_to_delete video, { url: admin_product_video_url(@product, video), no_text: true, method: :delete } %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <table class="table index sortable"  data-hook="product_videos_table" data-sortable-link="<%= update_positions_admin_product_videos_url(@product) %>">
+    <tr>
+      <th class="move-handle"></th>
+      <th>
+        <%= t("youtube_ref") %>
+      </th>
+      <th></th>
+      <th>Home</th>
+      <th>Stream</th>
+      <th class="actions"></th>
+    </tr>
+    <% @videos.each do |video| %>
+      <tr id="<%= spree_dom_id(video) %>">
+        <td class="move-handle text-center">
+          <% if can? :edit, video %>
+            <span class="icon icon-move handle"></span>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to (video.title.blank? ? video.youtube_link : video.title), video.youtube_link, class: 'fancyYoutube' %>
+        </td>
+        <td>
+          <%= link_to video.watchable.name, [:admin, video.watchable, :videos], target: '_blank' if video.watchable %>
+        </td>
+        <td>
+          <% if video.show_on_home %>
+            <i class="icon icon-ok"></i>
+          <% end %>
+        </td>
+        <td>
+          <% if video.stream %>
+            <i class="icon icon-ok"></i>
+          <% end %>
+        </td>
+        <td class="actions actions-2 text-right">
+          <%= link_to_edit 'edit', { url: edit_admin_video_url(video), no_text: true } %>
+          <%= link_to_delete video, { url: admin_video_url(video), no_text: true, method: :delete } %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+<div id="video"></div>
+<br/>
+<p>
+  <%= button_link_to  t("new_video"), (@product ? new_admin_product_video_url(@product) : new_admin_video_url), id: 'new_video_link', class: 'btn btn-success', icon: 'add' %>
+</p>
+<% content_for :head do %>
+  <script>
+
+      jQuery(document).ready(function(){
+
+          jQuery('#new_video_link').click(function (event) {
+              event.preventDefault();
+              jQuery(this).hide();
+              jQuery.ajax({type: 'GET', url: this.href, data: ({authenticity_token: AUTH_TOKEN}), success: function(r){ jQuery('#video').html(r);} });
+          });
+
+      });
+
+
+  </script>
+<% end %>
